@@ -1,0 +1,6 @@
+framework module EYShareTools {
+  umbrella header "EYShareTools-umbrella.h"
+
+  export *
+  module * { export * }
+}
