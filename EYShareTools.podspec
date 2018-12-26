@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'EYShareTools'
   s.version          = '0.0.1'
-  s.summary          = 'A short description of EYShareTools.'
+  s.summary          = '（微信/QQ/微博）分享集合'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -21,10 +21,10 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/huadong2593@163.com/EYShareTools'
+  s.homepage         = 'https://github.com/EasonYin/EYShareTools'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'huadong2593@163.com' => 'yinhuadong@jd.com' }
-  s.source           = { :git => 'https://github.com/huadong2593@163.com/EYShareTools.git', :tag => s.version.to_s }
+  s.author           = { 'huadong2593@163.com' => 'EasonYin' }
+  s.source           = { :git => 'https://github.com/EasonYin/EYShareTools.git', :tag => s.version.to_s }
   s.ios.deployment_target = '9.0'
 
   #
