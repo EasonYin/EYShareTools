@@ -1,23 +1,28 @@
 {
   "name": "EYShareTools",
   "version": "0.0.1",
-  "summary": "A short description of EYShareTools.",
+  "summary": "（微信/QQ/微博）分享集合",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/huadong2593@163.com/EYShareTools",
+  "homepage": "https://github.com/EasonYin/EYShareTools",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "huadong2593@163.com": "yinhuadong@jd.com"
+    "huadong2593@163.com": "EasonYin"
   },
   "source": {
-    "git": "https://github.com/huadong2593@163.com/EYShareTools.git",
+    "git": "https://github.com/EasonYin/EYShareTools.git",
     "tag": "0.0.1"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
+  "source_files": [
+    "EYShareTools/EYShareToolsConfigure.h",
+    "EYShareTools/Classes/**/*.{h,m}"
+  ],
+  "resources": "EYShareTools/Assets/*.xcassets",
   "frameworks": [
     "UIKit",
     "Foundation",
@@ -45,11 +50,6 @@
 
     ]
   },
-  "source_files": [
-    "EYShareTools/EYShareToolsConfigure.h",
-    "EYShareTools/Classes/**/*.{h,m}"
-  ],
-  "resources": "EYShareTools/Assets/*.xcassets",
   "subspecs": [
     {
       "name": "EY_vendored_libs",

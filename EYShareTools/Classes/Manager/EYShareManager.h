@@ -42,8 +42,6 @@ typedef void(^EYShareCancelBlock)(void);
 - (BOOL)isShowing;
 //取消分享
 - (void)cancel;
-//启用特价街埋点
-- (void)enableEYMTA;
 //隐藏未安装应用
 - (void)disableUnInstallApp;
 

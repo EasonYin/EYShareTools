@@ -24,7 +24,6 @@ typedef NS_ENUM(NSInteger , InstantType) {
     EYShareShakeView  *_shareView;        //分享view
     UIButton          *_maskView;         //
     BOOL               _isShowing;        //标识分享面板是否在显示中
-    BOOL               _isEYMTA;          //是否启用特价街埋点
     BOOL               _showUninstallApp; //是否显示未安装应用
     NSInteger          _shareViewHeight;  //分享面板高度
 }
@@ -72,7 +71,6 @@ static EYShareManager *sharedEYShareManager = nil;
 {
     if (self = [super init])
     {
-        _isEYMTA = NO;
         _showUninstallApp = YES;
         
         /*
@@ -124,10 +122,6 @@ static EYShareManager *sharedEYShareManager = nil;
         [self->_shareView removeFromSuperview];
         self->_isShowing = NO;
     }];
-}
-
--(void)enableEYMTA{
-    _isEYMTA = YES;
 }
 
 -(void)disableUnInstallApp{
