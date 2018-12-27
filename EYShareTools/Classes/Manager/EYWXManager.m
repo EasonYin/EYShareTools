@@ -6,7 +6,6 @@
 
 #import "EYWXManager.h"
 #import "EYShareManagerUtil.h"
-#import "WXApi.h"
 #import "WXApiObject.h"
 
 @interface EYWXManager()<WXApiDelegate>

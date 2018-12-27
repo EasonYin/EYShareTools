@@ -209,7 +209,7 @@
                     <navigationItem key="navigationItem" id="4o7-gP-Ce6"/>
                     <connections>
                         <outlet property="_qqFriends" destination="tvW-Hp-fVG" id="Zfm-fh-c9D"/>
-                        <outlet property="_qqSpace" destination="FXZ-Sn-6hn" id="Da7-da-CBU"/>
+                        <outlet property="_qqZone" destination="FXZ-Sn-6hn" id="JS9-KD-kSR"/>
                         <outlet property="_sinaWeibo" destination="5UD-4U-OwR" id="4cp-UQ-jtx"/>
                         <outlet property="_weChatFriends" destination="WRC-uO-QuZ" id="vFM-Qg-FP9"/>
                         <outlet property="_weChatMoments" destination="3sA-vh-hes" id="QTL-Xu-2Mv"/>

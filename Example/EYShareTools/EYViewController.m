@@ -9,12 +9,12 @@
 #import "EYViewController.h"
 #import <EYShareTools/EYShareTools-umbrella.h>
 
-@interface EYViewController ()
+@interface EYViewController ()<EYShareManagerDelegate>
 {
     __weak IBOutlet UIButton *_weChatFriends;
     __weak IBOutlet UIButton *_weChatMoments;
     __weak IBOutlet UIButton *_qqFriends;
-    __weak IBOutlet UIButton *_qqSpace;
+    __weak IBOutlet UIButton *_qqZone;
     __weak IBOutlet UIButton *_sinaWeibo;
     
 }
@@ -53,21 +53,21 @@
     EYShareInfoModel *shareModel = [EYShareInfoModel yy_modelWithDictionary:shareDic];
     
     NSMutableArray *shareChannel = [NSMutableArray array];
-    _weChatFriends.selected?[shareChannel addObject:Share_Wxfriends]:@"";
-    _weChatMoments.selected?[shareChannel addObject:Share_Wxmoments]:@"";
-    _qqFriends.selected?[shareChannel addObject:Share_QQfriends]:@"";
-    _qqSpace.selected?[shareChannel addObject:Share_QQZone]:@"";
-    _sinaWeibo.selected?[shareChannel addObject:Share_Sinaweibo]:@"";
+    _weChatFriends.selected?[shareChannel addObject:Share_Wxfriends]:nil;
+    _weChatMoments.selected?[shareChannel addObject:Share_Wxmoments]:nil;
+    _qqFriends.selected?[shareChannel addObject:Share_QQfriends]:nil;
+    _qqZone.selected?[shareChannel addObject:Share_QQZone]:nil;
+    _sinaWeibo.selected?[shareChannel addObject:Share_Sinaweibo]:nil;
     
     [[EYShareManager sharedEYShareManager]shareWithTarget:self channel:shareChannel shareModel:shareModel begin:^(BOOL state) {
-        NSLog(@"share begin");
+        NSLog(@"block share begin");
     } selectClient:^(NSString *selectClient) {
-        NSLog(@"share to :%@",selectClient);
+        NSLog(@"block share to:%@",selectClient);
     } cancel:^{
-        NSLog(@"share cancel");
+        NSLog(@"block share cancel");
     } completion:^(BOOL state, NSDictionary *resultInfo, NSString *isCallBack) {
         
-        NSLog(@"shareChannel:%@",resultInfo[@"shareChannel"]);
+        NSLog(@"block shareChannel:%@",resultInfo[@"shareChannel"]);
         
         if ([resultInfo[@"shareResult"] intValue] == 0){
             NSLog(@"成功");
@@ -87,5 +87,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - EYShareManagerDelegate
+#warning 按需选择代理和block方式回调
+- (void)shareBeginWithShareModel:(EYShareInfoModel *)model {
+    NSLog(@"delegate share begin");
+
+}
+
+- (void)shareCancelWithShareModel:(EYShareInfoModel *)model {
+    NSLog(@"delegate share cancel");
+
+}
+
+- (void)shareFinishedWithState:(BOOL)state resultInfo:(NSDictionary *)resultInfo shareModel:(EYShareInfoModel *)model {
+    NSLog(@"delegate shareChannel:%@",resultInfo[@"shareChannel"]);
+    
+    if ([resultInfo[@"shareResult"] intValue] == 0){
+        NSLog(@"成功");
+    }else if ([resultInfo[@"shareResult"] intValue] == 1){
+        NSLog(@"失败");
+    }else if ([resultInfo[@"shareResult"] intValue] == 2){
+        NSLog(@"取消");
+    }
+    
+    NSLog(@"isCallBack:%@",model.isCallBack);
+}
+
+- (void)shareToClient:(NSString *)client shareModel:(EYShareInfoModel *)model {
+    NSLog(@"delegate share to:%@",client);
+
+}
+
 
 @end

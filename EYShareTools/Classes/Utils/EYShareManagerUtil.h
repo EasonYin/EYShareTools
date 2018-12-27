@@ -62,6 +62,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSData *)compressImageData:(NSData *)data toByte:(NSUInteger)maxLength;
 
+
+/**
+ 检测是否字符串
+
+ @param str 字符串
+ @return 是否是字符串
+ */
 + (BOOL)validateString:(NSString *)str;
 
 @end

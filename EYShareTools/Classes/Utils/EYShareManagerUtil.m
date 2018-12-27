@@ -50,39 +50,9 @@ NSString *const Share_CopyURL   = @"CopyURL";
             urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"resourceValue=%@",resourceValue]];
         }
     }
-    if (![urlStr rangeOfString:@"resourceValue"].length)
-    {
-        urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&resourceValue=%@",resourceValue]];
-    }
-    if (![urlStr rangeOfString:@"ad_od"].length)
-    {
-        urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&ad_od=0"]];
-    }
     
     return urlStr;
     
-    //    if (![urlStr rangeOfString:@"resourceType"].length)
-    //    {
-    //        urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&resourceType=%@",resourceType]];
-    //    }
-    //    if (![urlStr rangeOfString:@"utm_source"].length)
-    //    {
-    //        urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&utm_source=%@",utm_source]];
-    //    }
-    //    if (![urlStr rangeOfString:@"utm_medium"].length)
-    //    {
-    //        urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&utm_medium=%@",utm_medium]];
-    //    }
-    //    if (![urlStr rangeOfString:@"utm_campaign"].length)
-    //    {
-    //        urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&utm_campaign=%@",utm_campaign]];
-    //    }
-    //    if (![urlStr rangeOfString:@"utm_term"].length)
-    //    {
-    //        urlStr = [urlStr stringByAppendingString:[NSString stringWithFormat:@"&utm_term=%@",resourceValue]];
-    //    }
-    //
-    //    return urlStr;
 }
 
 + (NSData *)loadingImageUrl:(NSString * _Nullable)shareImageUrl imageData:(NSData* _Nullable)shareImageData length:(NSInteger)length

@@ -146,10 +146,6 @@ static EYShareManager *sharedEYShareManager = nil;
         [_maskView removeFromSuperview];
     }
     
-    if ([self.delegate respondsToSelector:@selector(shareBeginWithShareModel:)]) {
-        [self.delegate shareBeginWithShareModel:_shareModel];
-    }
-    
     if (shareBtnCount == 0) {
         
         self.beginBlock(NO);
