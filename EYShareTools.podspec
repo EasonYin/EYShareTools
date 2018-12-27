@@ -32,6 +32,7 @@ TODO: Add long description of the pod here.
   #
   s.source_files = 'EYShareTools/EYShareToolsConfigure.h','EYShareTools/Classes/**/*.{h,m}'
   s.resources = 'EYShareTools/Assets/*.xcassets'
+  s.public_header_files = 'EYShareTools/EYShareToolsConfigure.h','EYShareTools/Classes/**/*.h'
 
   #依赖基础库
   s.frameworks = 'UIKit', 'Foundation', 'Security', 'CoreGraphics', 'ImageIO', 'SystemConfiguration', 'CoreTelephony', 'QuartzCore', 'CoreText', 'Photos'
