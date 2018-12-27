@@ -16,12 +16,12 @@
     "tag": "0.0.1"
   },
   "platforms": {
-    "ios": "9.0"
+    "ios": "6.0"
   },
-  "static_framework": true,
   "pod_target_xcconfig": {
     "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES": "YES"
   },
+  "requires_arc": true,
   "source_files": [
     "EYShareTools/EYShareToolsConfigure.h",
     "EYShareTools/Classes/**/*.{h,m}"
@@ -50,7 +50,6 @@
 
     ]
   },
-  "preserve_paths": "EY_vendored_libs/**/*.*",
   "subspecs": [
     {
       "name": "EY_vendored_libs",

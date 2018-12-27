@@ -206,7 +206,6 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				CAC7D306B9C4B9C1E7F02573 /* [CP] Embed Pods Frameworks */,
-				60BBEB26058EFFE0DB5E5107 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -295,30 +294,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		60BBEB26058EFFE0DB5E5107 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example-resources.sh",
-				"${PODS_ROOT}/../../EYShareTools/Assets/EYShareToolsAssets.xcassets",
-				"${PODS_ROOT}/../../EY_vendored_libs/libWeiboSDK_3.2.3/WeiboSDK.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Assets.car",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B71ED289C41869877C54F517 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -350,6 +325,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/EYShareTools/EYShareTools.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 			);
@@ -357,6 +333,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EYShareTools.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 			);

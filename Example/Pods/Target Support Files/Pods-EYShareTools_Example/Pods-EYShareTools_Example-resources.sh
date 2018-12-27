@@ -91,14 +91,6 @@ EOM
       ;;
   esac
 }
-if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_resource "${PODS_ROOT}/../../EYShareTools/Assets/EYShareToolsAssets.xcassets"
-  install_resource "${PODS_ROOT}/../../EY_vendored_libs/libWeiboSDK_3.2.3/WeiboSDK.bundle"
-fi
-if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_resource "${PODS_ROOT}/../../EYShareTools/Assets/EYShareToolsAssets.xcassets"
-  install_resource "${PODS_ROOT}/../../EY_vendored_libs/libWeiboSDK_3.2.3/WeiboSDK.bundle"
-fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
