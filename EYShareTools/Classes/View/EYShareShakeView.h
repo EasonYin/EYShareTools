@@ -5,7 +5,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Masonry/Masonry.h>
 #import "UIView+Layout.h"
 
 @protocol EYShareShakeDelegate <NSObject>

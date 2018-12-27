@@ -5,9 +5,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WeiboSDK.h"
-
-@class WBMessageObject;
 
 @protocol EYSinaManagerDelegate <NSObject>
 /**
@@ -50,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return 成功返回YES，失败返回NO。
  */
-+ (BOOL)sendShareReq:(WBMessageObject*)message target:(id<EYSinaManagerDelegate>)target completion:(_Nullable completionBlock)completion;
++ (BOOL)sendShareReq:(id)message target:(id<EYSinaManagerDelegate>)target completion:(_Nullable completionBlock)completion;
 
 /**
  *  授权方法，等待返回
@@ -61,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return 成功返回YES，失败返回NO。
  */
-+ (BOOL)sendSSOReq:(WBAuthorizeRequest*)authRequest target:(id<EYSinaManagerDelegate>)target completion:(_Nullable completionBlock)completion;
++ (BOOL)sendSSOReq:(id)authRequest target:(id<EYSinaManagerDelegate>)target completion:(_Nullable completionBlock)completion;
 
 @end
 

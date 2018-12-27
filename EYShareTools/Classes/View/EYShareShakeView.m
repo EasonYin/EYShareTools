@@ -10,6 +10,7 @@
 #import "EYQQManager.h"
 #import "EYWXManager.h"
 #import "EYSinaManager.h"
+#import <Masonry/Masonry.h>
 
 /**
  * 标示分享渠道tag

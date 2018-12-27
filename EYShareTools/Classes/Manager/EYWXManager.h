@@ -5,7 +5,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WXApi.h"
 
 @protocol EYWXManagerDelegate <NSObject>
 /**
@@ -48,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return 成功返回YES，失败返回NO。
  */
-+ (BOOL)sendReq:(BaseReq*)req target:(id<EYWXManagerDelegate>)target completion:(_Nullable completionBlock)completion;
++ (BOOL)sendReq:(id)req target:(id<EYWXManagerDelegate>)target completion:(_Nullable completionBlock)completion;
 
 @end
 

@@ -8,6 +8,7 @@
 
 #import "EYViewController.h"
 #import <EYShareTools/EYShareTools-umbrella.h>
+#import <YYModel/YYModel-umbrella.h>
 
 @interface EYViewController ()<EYShareManagerDelegate>
 {

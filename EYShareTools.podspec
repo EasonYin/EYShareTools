@@ -39,7 +39,6 @@ TODO: Add long description of the pod here.
   s.libraries = 'z', 'sqlite3', 'c++', 'stdc++'
   
   #依赖第三方
-  s.dependency 'YYModel'
   s.dependency 'Masonry'
   
   s.subspec 'EY_vendored_libs' do |sb|

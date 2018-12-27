@@ -12,6 +12,8 @@
 #import "EYWXManager.h"
 #import "EYSinaManager.h"
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "WeiboSDK.h"
+#import "WXApi.h"
 
 typedef NS_ENUM(NSInteger , InstantType) {
     kInstantTypeFinish,

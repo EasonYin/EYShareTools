@@ -6,6 +6,7 @@
 
 #import "EYSinaManager.h"
 #import "EYShareManagerUtil.h"
+#import "WeiboSDK.h"
 
 @interface EYSinaManager() <WeiboSDKDelegate>
 @property (nonatomic,copy) completionBlock block;
@@ -85,7 +86,7 @@ static EYSinaManager *sharedEYSinaManager = nil;
     return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
-+ (BOOL)sendShareReq:(WBMessageObject *)message target:(id<EYSinaManagerDelegate>)target completion:(completionBlock)completion{
++ (BOOL)sendShareReq:(id)message target:(id<EYSinaManagerDelegate>)target completion:(completionBlock)completion{
     [[EYSinaManager sharedEYSinaManager] setSinaDelegate:target];
     [[EYSinaManager sharedEYSinaManager] setBlock:completion];
     
@@ -101,7 +102,7 @@ static EYSinaManager *sharedEYSinaManager = nil;
     return [WeiboSDK sendRequest:request];
 }
 
-+ (BOOL)sendSSOReq:(WBAuthorizeRequest *)authRequest target:(id<EYSinaManagerDelegate>)target completion:(completionBlock)completion{
++ (BOOL)sendSSOReq:(id)authRequest target:(id<EYSinaManagerDelegate>)target completion:(completionBlock)completion{
     [[EYSinaManager sharedEYSinaManager] setSinaDelegate:target];
     [[EYSinaManager sharedEYSinaManager] setBlock:completion];
     return [WeiboSDK sendRequest:authRequest];

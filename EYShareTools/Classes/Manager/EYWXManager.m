@@ -6,7 +6,7 @@
 
 #import "EYWXManager.h"
 #import "EYShareManagerUtil.h"
-#import "WXApiObject.h"
+#import "WXApi.h"
 
 @interface EYWXManager()<WXApiDelegate>
 @property (nonatomic,strong)NSString *wxAppId;
@@ -83,7 +83,7 @@ static EYWXManager *sharedEYWXManager = nil;
     return [WXApi handleOpenURL:url delegate:self];
 }
 
-+ (BOOL)sendReq:(BaseReq *)req target:(id<EYWXManagerDelegate>)target completion:(_Nullable completionBlock)completion
++ (BOOL)sendReq:(id)req target:(id<EYWXManagerDelegate>)target completion:(_Nullable completionBlock)completion
 {
     [[EYWXManager sharedEYWXManager] setWxDelegate:target];
     [[EYWXManager sharedEYWXManager] setBlock:completion];
