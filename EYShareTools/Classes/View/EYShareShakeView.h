@@ -20,6 +20,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EYShareShakeView : UIView
++ (EYShareShakeView *)sharedEYShareShakeView;
 @property (weak, nonatomic) id<EYShareShakeDelegate> delegate;
 
 //通过传入进来的数组重新绘制UI

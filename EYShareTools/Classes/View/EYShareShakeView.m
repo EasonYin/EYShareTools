@@ -27,26 +27,68 @@ typedef NS_ENUM(NSUInteger, _EYShareChanelType) {
 @implementation EYShareShakeView
 @synthesize delegate = delegate_;
 
-- (void)removeAllSubViews{
-    
+#pragma mark- Lifecycle Methods
+static EYShareShakeView *sharedEYShareShakeView = nil;
+
++ (EYShareShakeView *)sharedEYShareShakeView
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedEYShareShakeView = [[EYShareShakeView alloc] init];
+    });
+    return sharedEYShareShakeView;
 }
 
-- (id)initWithFrame:(CGRect)frame
++ (id)allocWithZone:(NSZone *)zone
 {
-    self = [super initWithFrame:frame];
-    if (self)
+    @synchronized(self)
     {
-        self.backgroundColor = [EYShareManagerUtil colorWithHex:@"#f1f1f1"];
+        if (sharedEYShareShakeView == nil)
+        {
+            sharedEYShareShakeView = [super allocWithZone:zone];
+            return sharedEYShareShakeView;
+        }
+    }
+    
+    return nil;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
+}
+
+-(id)init
+{
+    if (self = [super init])
+    {
+        self.backgroundColor = [UIColor lightTextColor];
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOpacity = 0.5;
         self.layer.shadowOffset = CGSizeMake(0, 0);
         self.alpha = 0.95;
-        [self setUpUIWithChannelArray:@[Share_Wxfriends,Share_Wxmoments,Share_QQfriends,Share_QQZone,Share_Sinaweibo,Share_CopyURL] showUninstallApp:YES];
     }
     return self;
 }
 
+/**
+ 计算分享面板显示高度
+ 
+ @param shareBtnCount 分享渠道个数
+ @return 分享面板显示高度
+ */
+- (NSInteger)getShareViewHeight:(NSInteger)shareBtnCount{
+    NSInteger showHeight = kEYIphone6Scale(120) + (shareBtnCount>4?kEYIphone6Scale(180):kEYIphone6Scale(90)) + kEYSafeAreaBottom;
+    return showHeight;
+}
+
+- (void)removeAllSubViews{
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
 -(void)setUpUIWithChannelArray:(NSArray *)channelArr  showUninstallApp:(BOOL)show{
+    
+    [EYShareShakeView sharedEYShareShakeView].frame = CGRectMake(0, kEYSCREEN_HEIGHT, kEYSCREEN_WIDTH, [self getShareViewHeight:channelArr.count]);
     [self removeAllSubViews];
     
     //top
@@ -56,10 +98,11 @@ typedef NS_ENUM(NSUInteger, _EYShareChanelType) {
     topView.top = kEYYGap;
     topView.centerX = kEYSCREEN_WIDTH/2;
     
-    UILabel *topLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+    UILabel *topLabel = [[UILabel alloc]initWithFrame:topView.frame];
     topLabel.text = @"分享到";
-    topLabel.textColor = [EYShareManagerUtil colorWithHex:@"#000000"];
-    topLabel.font = [UIFont systemFontOfSize:kEYShareButtonFontSize];
+    topLabel.textColor = [UIColor blackColor];
+    topLabel.textAlignment = NSTextAlignmentCenter;
+    topLabel.font = [UIFont systemFontOfSize:kEYCancelButtonFontSize];
     [self addSubview:topLabel];
     topLabel.top = kEYYGap;
     topLabel.centerX = kEYSCREEN_WIDTH/2;
@@ -108,12 +151,6 @@ typedef NS_ENUM(NSUInteger, _EYShareChanelType) {
                 channelTag      = Channel_CopyURL;
                 break;
             }
-            CASE(Share_QRCode){
-                imageName       = @"Button_QR_Share";
-                shareLabelText  = @"二维码分享";
-                channelTag      = Channel_QRCode;
-                break;
-            }
             DEFAULT{
                 break;
             }
@@ -140,20 +177,22 @@ typedef NS_ENUM(NSUInteger, _EYShareChanelType) {
         [self addSubview:shareBtn];
         [btnArr addObject:shareBtn];
         
-        UILabel *shareLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+        UILabel *shareLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kEYShareButtonWidth, 20)];
         shareLabel.text = shareLabelText;
-        shareLabel.textColor = [EYShareManagerUtil colorWithHex:@"#000000"];
+        shareLabel.textColor = [UIColor blackColor];
+        shareLabel.textAlignment = NSTextAlignmentCenter;
+        shareLabel.adjustsFontSizeToFitWidth = YES;
         shareLabel.font = [UIFont systemFontOfSize:kEYShareButtonFontSize];
         [self addSubview:shareLabel];
         [labelArr addObject:shareLabel];
     }
     
     //页面布局
-    //    CGFloat btnGap = ((kEYSCREEN_WIDTH-(btnArr.count<4?btnArr.count:4)*kEYShareButtonWith-(kEYXGap+kEYXGap)*2)/((btnArr.count<4?btnArr.count:4)+1))?:0.0;
+//    CGFloat btnGap = ((kEYSCREEN_WIDTH-(btnArr.count<4?btnArr.count:4)*kEYShareButtonWith-(kEYXGap+kEYXGap)*2)/((btnArr.count<4?btnArr.count:4)+1))?:0.0;
     for (int i = 0; i < btnArr.count; i ++) {
         UIButton *btn = (UIButton*)btnArr[i];
         btn.top = topView.bottom + (i>3?kEYShareButtonImageSecondTopSpace:kEYShareButtonImageTopSpace);
-        //        btn.left = btnArr.count<4?(kEYXGap+kEYXGap*(btnArr.count==2?1:(i+1>4?i-4:i))+kEYShareButtonWith*(i+1>4?i-4:i) + btnGap*((i+1>4?i-4:i)+1)):(kEYXGap*((i>3?i-4:i)+1) + kEYXGap * (i>3?i-4:i));
+//        btn.left = btnArr.count<4?(kEYXGap+kEYXGap*(btnArr.count==2?1:(i+1>4?i-4:i))+kEYShareButtonWith*(i+1>4?i-4:i) + btnGap*((i+1>4?i-4:i)+1)):(kEYXGap*((i>3?i-4:i)+1) + kEYXGap * (i>3?i-4:i));
         btn.left = kEYXGap*((i>3?i-4:i)+1) + kEYXGap * (i>3?i-4:i);
         
         UILabel *label = (UILabel*)labelArr[i];
@@ -162,15 +201,15 @@ typedef NS_ENUM(NSUInteger, _EYShareChanelType) {
     }
     
     UIImageView* bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0,self.bounds.size.height-kEYCancelButtonHeight-(1.5/2) - kEYSafeAreaBottom, kEYIphone6Scale(300), 1.5/2)];
-    bottomView.backgroundColor = [EYShareManagerUtil colorWithHex:@"#bababa"];
+    bottomView.backgroundColor = [UIColor lightGrayColor];
     [self addSubview:bottomView];
     bottomView.centerX = kEYSCREEN_WIDTH/2;
     
     UIButton *btnCancel = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [btnCancel setTitle:@"取消" forState:(UIControlStateNormal)];
     [btnCancel setFrame:CGRectMake(0, self.bounds.size.height - kEYCancelButtonHeight - kEYSafeAreaBottom, self.bounds.size.width, kEYCancelButtonHeight)];
-    [btnCancel setTitleColor:[EYShareManagerUtil colorWithHex:@"#000000"] forState:UIControlStateNormal];
-    [btnCancel setTitleColor:[EYShareManagerUtil colorWithHex:@"#000000"] forState:UIControlStateHighlighted];
+    [btnCancel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btnCancel setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     btnCancel.titleLabel.font = [UIFont systemFontOfSize:kEYCancelButtonFontSize];
     [btnCancel addTarget:self action:@selector(cancel:) forControlEvents:(UIControlEventTouchUpInside)];
     [self addSubview:btnCancel];
@@ -197,10 +236,6 @@ typedef NS_ENUM(NSUInteger, _EYShareChanelType) {
         case Channel_CopyURL:
             [self copyURL];
             break;
-        case Channel_QRCode:
-            [self shareToQRCode];
-            break;
-            
         default:
             break;
     }
@@ -244,12 +279,6 @@ typedef NS_ENUM(NSUInteger, _EYShareChanelType) {
 - (void)copyURL{
     if (delegate_ && [delegate_ respondsToSelector:@selector(shareToClient:)]) {
         [delegate_ performSelector:@selector(shareToClient:) withObject:Share_CopyURL];
-    }
-}
-
-- (void)shareToQRCode{
-    if (delegate_ && [delegate_ respondsToSelector:@selector(shareToClient:)]) {
-        [delegate_ performSelector:@selector(shareToClient:) withObject:Share_QRCode];
     }
 }
 

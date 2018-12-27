@@ -13,9 +13,9 @@
 #import "EYSinaManager.h"
 
 typedef NS_ENUM(NSInteger , InstantType) {
-    kInstantTypeFinish,      //即时性弹窗完成类型     T_05类型
-    kInstantTypeFail,        //即时性弹窗失败类型     T_06类型
-    kInstantTypeOnlyMessage,  //即时性弹窗文案类型     T_07类型
+    kInstantTypeFinish,
+    kInstantTypeFail,
+    kInstantTypeOnlyMessage,
 };
 
 @interface EYShareManager()<EYWXManagerDelegate,EYQQManagerDelegate,EYSinaManagerDelegate,EYShareShakeDelegate>
@@ -25,7 +25,6 @@ typedef NS_ENUM(NSInteger , InstantType) {
     UIButton          *_maskView;         //
     BOOL               _isShowing;        //标识分享面板是否在显示中
     BOOL               _showUninstallApp; //是否显示未安装应用
-    NSInteger          _shareViewHeight;  //分享面板高度
 }
 @property (nonatomic,copy) NSString *clientString;
 @property (nonatomic,copy) EYShareCompletionBlock completionBlock;
@@ -73,31 +72,7 @@ static EYShareManager *sharedEYShareManager = nil;
     {
         _showUninstallApp = YES;
         
-        /*
-         * 默认显示全部，若关闭全部显示，则只显示手机上安装的渠道
-         */
-        NSInteger shareBtnCount = 7;
-#if !(TARGET_IPHONE_SIMULATOR)
-        if (!_showUninstallApp) {
-            for (int i = 0; i < 5; i ++) {
-                if (![EYWXManager isWXAppInstalled] || ![EYQQManager isQQorTIMInstalled] || ![EYSinaManager isWeiboAppInstalled]){
-                    shareBtnCount --;
-                }
-            }
-        }
-#else
-#endif
-        
-        _shareViewHeight = [self getShareViewHeight:shareBtnCount];
-        _shareView = [[EYShareShakeView alloc] initWithFrame:(CGRect){0, kEYSCREEN_HEIGHT, kEYSCREEN_WIDTH,_shareViewHeight}];
-        _shareView.delegate = self;
-        
-        _maskView = [UIButton buttonWithType:UIButtonTypeCustom];
-        _maskView.frame = (CGRect){0,0,kEYSCREEN_WIDTH,kEYSCREEN_HEIGHT};
-        _maskView.backgroundColor = [UIColor clearColor];
-        _maskView.alpha = 1.0;
-        [_maskView addTarget:self action:@selector(shareCancel:) forControlEvents:UIControlEventTouchUpInside];
-        
+        [self initShareView];
     }
     return self;
 }
@@ -176,53 +151,67 @@ static EYShareManager *sharedEYShareManager = nil;
     }
     
     if (shareBtnCount == 0) {
+        
+        self.beginBlock(NO);
         [self showDialogWithState:(kInstantTypeFail) Msg:@"抱歉，您尚未安装相应软件！"];
-    }
-    else if (shareBtnCount == 1){
-        [self shareToClient:channelArr[0]];
+        
     }
     else{
-        _shareViewHeight = [self getShareViewHeight:shareBtnCount];
-        _shareView.height = _shareViewHeight;
-        [_shareView setUpUIWithChannelArray:channelArr showUninstallApp:_showUninstallApp];
         
-        _isShowing = YES;
-        _maskView.hidden = NO;
-        if (!_maskView.superview) {
-            [[UIApplication sharedApplication].keyWindow addSubview:_maskView];
+        self.beginBlock(YES);
+        
+        if ([self.delegate respondsToSelector:@selector(shareBeginWithShareModel:)]) {
+            [self.delegate shareBeginWithShareModel:_shareModel];
         }
-        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_maskView];
         
-        if (!_shareView.superview) {
-            [[UIApplication sharedApplication].keyWindow addSubview:_shareView];
+        if (shareBtnCount == 1){
+            [self shareToClient:channelArr[0]];
         }
-        [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_shareView];
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            if (self->_shareView ) {
-                CGRect rect  = self->_shareView.frame;
-                rect.origin.y = CGRectGetHeight([UIApplication sharedApplication].keyWindow.frame) - self->_shareViewHeight;
-                self->_shareView.frame = rect;
-            }
-        } completion:^(BOOL finished) {
+        else{
             
-        }];
+            [_shareView setUpUIWithChannelArray:channelArr showUninstallApp:_showUninstallApp];
+            
+            _isShowing = YES;
+            _maskView.hidden = NO;
+            if (!_maskView.superview) {
+                [[UIApplication sharedApplication].keyWindow addSubview:_maskView];
+            }
+            [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_maskView];
+            
+            if (!_shareView.superview) {
+                [[UIApplication sharedApplication].keyWindow addSubview:_shareView];
+            }
+            [[UIApplication sharedApplication].keyWindow bringSubviewToFront:_shareView];
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                if (self->_shareView ) {
+                    CGRect rect  = self->_shareView.frame;
+                    rect.origin.y = CGRectGetHeight([UIApplication sharedApplication].keyWindow.frame) - self->_shareView.height;
+                    self->_shareView.frame = rect;
+                }
+            } completion:^(BOOL finished) {
+                
+            }];
+            
+        }
     }
     
 }
 
 #pragma mark- Private Methods
+- (void)initShareView{
 
-/**
- 计算分享面板显示高度
- 
- @param shareBtnCount 分享渠道个数
- @return 分享面板显示高度
- */
-- (NSInteger)getShareViewHeight:(NSInteger)shareBtnCount{
-    NSInteger showHeight = kEYIphone6Scale(120) + (shareBtnCount>4?kEYIphone6Scale(180):kEYIphone6Scale(90)) + kEYSafeAreaBottom;
-    return showHeight;
+    _shareView = [EYShareShakeView sharedEYShareShakeView];
+    _shareView.delegate = self;
+    
+    _maskView = [UIButton buttonWithType:UIButtonTypeCustom];
+    _maskView.frame = (CGRect){0,0,kEYSCREEN_WIDTH,kEYSCREEN_HEIGHT};
+    _maskView.backgroundColor = [UIColor clearColor];
+    _maskView.alpha = 1.0;
+    [_maskView addTarget:self action:@selector(shareCancel:) forControlEvents:UIControlEventTouchUpInside];
+
 }
+
 
 /**
  *   分享到新浪微博
@@ -413,11 +402,6 @@ static EYShareManager *sharedEYShareManager = nil;
     [self didReceiveShareResaultMessageFinishedState:YES Message:@"复制成功" ResultInfo:nil];
 }
 
-//二维码分享 暂不支持
-- (void)shareToQRCode{
-    [self showDialogWithState:(kInstantTypeOnlyMessage) Msg:@"二维码分享渠道暂不支持！"];
-}
-
 //增加对数据判空处理
 - (void)checkShareModelInfo
 {
@@ -472,6 +456,7 @@ static EYShareManager *sharedEYShareManager = nil;
 {
     self.clientString = client;
     [self cancel];
+    self.selectClientBlock(client);
     
     if ([self.delegate respondsToSelector:@selector(shareToClient:shareModel:)]) {
         [self.delegate shareToClient:self.clientString shareModel:_shareModel];
@@ -502,10 +487,6 @@ static EYShareManager *sharedEYShareManager = nil;
             [self copyURL];
             break;
         }
-        CASE(Share_QRCode){
-            [self shareToQRCode];
-            break;
-        }
     }
 }
 
@@ -514,7 +495,7 @@ static EYShareManager *sharedEYShareManager = nil;
     if ([self.delegate respondsToSelector:@selector(shareCancelWithShareModel:)]) {
         [self.delegate shareCancelWithShareModel:_shareModel];
     }
-    
+    self.cancelBlock();
     [self cancel];
 }
 

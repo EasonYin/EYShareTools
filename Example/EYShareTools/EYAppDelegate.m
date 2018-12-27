@@ -8,11 +8,17 @@
 
 #import "EYAppDelegate.h"
 
+#import <EYShareTools/EYShareTools-umbrella.h>
+
 @implementation EYAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [EYSocialSDKManager registerQQWithAppId:@"1107230818"];
+    [EYSocialSDKManager registerSinaWithAppId:@"2368934348"];
+    [EYSocialSDKManager registerWeChatWithAppId:@"3c1d1e144a0ec919"];
+
     return YES;
 }
 
@@ -43,4 +49,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    return [EYSocialSDKManager application:app openURL:url options:options];
+}
 @end

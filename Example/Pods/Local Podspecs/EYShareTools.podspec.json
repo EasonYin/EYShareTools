@@ -18,6 +18,13 @@
   "platforms": {
     "ios": "9.0"
   },
+  "static_framework": true,
+  "user_target_xcconfig": {
+    "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES": "YES"
+  },
+  "pod_target_xcconfig": {
+    "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES": "YES"
+  },
   "source_files": [
     "EYShareTools/EYShareToolsConfigure.h",
     "EYShareTools/Classes/**/*.{h,m}"
@@ -39,7 +46,6 @@
     "z",
     "sqlite3",
     "c++",
-    "iconv",
     "stdc++"
   ],
   "dependencies": {

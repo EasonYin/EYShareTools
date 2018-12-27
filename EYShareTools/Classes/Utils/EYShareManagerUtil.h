@@ -13,7 +13,6 @@ extern NSString *const Share_Sinaweibo;
 extern NSString *const Share_QQfriends;
 extern NSString *const Share_QQZone;
 extern NSString *const Share_CopyURL;
-extern NSString *const Share_QRCode;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -64,7 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSData *)compressImageData:(NSData *)data toByte:(NSUInteger)maxLength;
 
 + (BOOL)validateString:(NSString *)str;
-+ (UIColor*)colorWithHex:(NSString *)hex;
 
 @end
 
