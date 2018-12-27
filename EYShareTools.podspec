@@ -26,7 +26,6 @@ TODO: Add long description of the pod here.
   s.author           = { 'huadong2593@163.com' => 'EasonYin' }
   s.source           = { :git => 'https://github.com/EasonYin/EYShareTools.git', :tag => s.version.to_s }
   s.ios.deployment_target = '6.0'
-#  s.static_framework = true
   s.pod_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
   s.requires_arc = true
 
