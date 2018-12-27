@@ -187,11 +187,11 @@ static EYQQManager *sharedEYQQManager = nil;
     }
     
     if (self.block) {
-        self.block(state, message, resp);
+        self.block(state, message, resp.copy);
     }
     
     if (self.qqDelegate && [self.qqDelegate respondsToSelector:@selector(QQMessageFinishedState:Message:ResultInfo:)]) {
-        [self.qqDelegate QQMessageFinishedState:state Message:message ResultInfo:resp];
+        [self.qqDelegate QQMessageFinishedState:state Message:message ResultInfo:resp.copy];
     }
 }
 
