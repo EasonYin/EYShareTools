@@ -40,21 +40,22 @@ TODO: Add long description of the pod here.
   #依赖第三方
   s.dependency 'Masonry'
   
+  s.preserve_path = 'EY_vendored_libs/**/*.*'
   s.subspec 'EY_vendored_libs' do |sb|
     #微博
     sb.subspec 'libWeiboSDK_3.2.3' do |submain|
-        submain.source_files = "EY_vendored_libs/libWeiboSDK_3.2.3/**/*.h"
-        submain.vendored_library = "EY_vendored_libs/libWeiboSDK_3.2.3/**/*.a"
-        submain.resource = "EY_vendored_libs/libWeiboSDK_3.2.3/**/*.bundle"
+        submain.source_files = "EY_vendored_libs/libWeiboSDK_3.2.3/*.h"
+        submain.vendored_library = "EY_vendored_libs/libWeiboSDK_3.2.3/*.a"
+        submain.resource = "EY_vendored_libs/libWeiboSDK_3.2.3/*.bundle"
     end
     #微信
     sb.subspec 'WechatSDK_1.8.2' do |submain|
-        submain.vendored_library = "EY_vendored_libs/WechatSDK_1.8.2/**/*.a"
-        submain.source_files = "EY_vendored_libs/WechatSDK_1.8.2/**/*.{h,txt}"
+        submain.vendored_library = "EY_vendored_libs/WechatSDK_1.8.2/*.a"
+        submain.source_files = "EY_vendored_libs/WechatSDK_1.8.2/*.{h,txt}"
     end
     #QQ
     sb.subspec 'TencentOpenAPI_3.3.3' do |submain|
-        submain.vendored_frameworks = "EY_vendored_libs/TencentOpenAPI_3.3.3/**/*.framework"
+        submain.vendored_frameworks = "EY_vendored_libs/TencentOpenAPI_3.3.3/*.framework"
     end
     
   end

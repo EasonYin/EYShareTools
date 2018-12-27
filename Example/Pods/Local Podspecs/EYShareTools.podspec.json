@@ -50,24 +50,25 @@
 
     ]
   },
+  "preserve_paths": "EY_vendored_libs/**/*.*",
   "subspecs": [
     {
       "name": "EY_vendored_libs",
       "subspecs": [
         {
           "name": "libWeiboSDK_3.2.3",
-          "source_files": "EY_vendored_libs/libWeiboSDK_3.2.3/**/*.h",
-          "vendored_libraries": "EY_vendored_libs/libWeiboSDK_3.2.3/**/*.a",
-          "resources": "EY_vendored_libs/libWeiboSDK_3.2.3/**/*.bundle"
+          "source_files": "EY_vendored_libs/libWeiboSDK_3.2.3/*.h",
+          "vendored_libraries": "EY_vendored_libs/libWeiboSDK_3.2.3/*.a",
+          "resources": "EY_vendored_libs/libWeiboSDK_3.2.3/*.bundle"
         },
         {
           "name": "WechatSDK_1.8.2",
-          "vendored_libraries": "EY_vendored_libs/WechatSDK_1.8.2/**/*.a",
-          "source_files": "EY_vendored_libs/WechatSDK_1.8.2/**/*.{h,txt}"
+          "vendored_libraries": "EY_vendored_libs/WechatSDK_1.8.2/*.a",
+          "source_files": "EY_vendored_libs/WechatSDK_1.8.2/*.{h,txt}"
         },
         {
           "name": "TencentOpenAPI_3.3.3",
-          "vendored_frameworks": "EY_vendored_libs/TencentOpenAPI_3.3.3/**/*.framework"
+          "vendored_frameworks": "EY_vendored_libs/TencentOpenAPI_3.3.3/*.framework"
         }
       ]
     }
