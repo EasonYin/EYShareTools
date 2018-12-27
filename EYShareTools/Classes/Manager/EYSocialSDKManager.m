@@ -31,7 +31,7 @@
         return NO;
     }
     [EYQQManager registerApp:appid];
-    if (![[[EYQQManager sharedEYQQManager] appId] isEqualToString:appid]) {
+    if (![[EYQQManager getQQAppId] isEqualToString:appid]) {
         return NO;
     }
     return YES;

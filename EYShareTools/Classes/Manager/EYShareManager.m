@@ -11,6 +11,7 @@
 #import "EYQQManager.h"
 #import "EYWXManager.h"
 #import "EYSinaManager.h"
+#import <TencentOpenAPI/QQApiInterface.h>
 
 typedef NS_ENUM(NSInteger , InstantType) {
     kInstantTypeFinish,

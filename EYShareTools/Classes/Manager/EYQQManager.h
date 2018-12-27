@@ -5,8 +5,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <TencentOpenAPI/QQApiInterface.h>
-#import <TencentOpenAPI/TencentOAuth.h>
 
 @protocol EYQQManagerDelegate <NSObject>
 /**
@@ -31,7 +29,7 @@ typedef void(^completionBlock)(BOOL state, NSString *message,id resultInfo);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EYQQManager : TencentOAuth
+@interface EYQQManager : NSObject
 @property (nonatomic,weak)id<EYQQManagerDelegate> qqDelegate;
 
 + (EYQQManager *)sharedEYQQManager;
@@ -44,8 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 分享相关,分享至QQ或QQ空间
  */
-+ (QQApiSendResultCode)sendReqQQ:(QQApiNewsObject*)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion;
-+ (QQApiSendResultCode)sendReqQQZone:(QQApiNewsObject*)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion;
++ (BOOL)sendReqQQ:(id)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion;
++ (BOOL)sendReqQQZone:(id)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion;
 
 /**
  * 授权

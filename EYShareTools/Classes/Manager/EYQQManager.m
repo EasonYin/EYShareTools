@@ -6,8 +6,11 @@
 
 #import "EYQQManager.h"
 #import "EYShareManagerUtil.h"
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
 
 @interface EYQQManager ()<QQApiInterfaceDelegate,TencentSessionDelegate>
+@property (nonatomic,strong) TencentOAuth* oauth;
 @property (nonatomic,copy) completionBlock block;
 @end
 
@@ -46,10 +49,12 @@ static EYQQManager *sharedEYQQManager = nil;
     return self;
 }
 
--(instancetype)init{
-    return [super initWithAppId:qqAppId andDelegate:self];
+-(TencentOAuth *)oauth{
+    if (!_oauth) {
+        _oauth = [[TencentOAuth alloc]initWithAppId:qqAppId andDelegate:self];
+    }
+    return _oauth;
 }
-
 #pragma mark - Public Methods
 + (void)registerApp:(NSString *)appid{
     qqAppId = appid;
@@ -57,7 +62,7 @@ static EYQQManager *sharedEYQQManager = nil;
 }
 
 +(NSString *)getQQAppId{
-    return [[EYQQManager sharedEYQQManager] appId];
+    return qqAppId;
 }
 
 + (BOOL)isQQorTIMInstalled
@@ -99,7 +104,7 @@ static EYQQManager *sharedEYQQManager = nil;
     }
 }
 
-+ (QQApiSendResultCode)sendReqQQ:(QQApiNewsObject *)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
++ (BOOL)sendReqQQ:(id)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
     [[EYQQManager sharedEYQQManager] setQqDelegate:target];
     [[EYQQManager sharedEYQQManager] setBlock:completion];
     
@@ -107,7 +112,7 @@ static EYQQManager *sharedEYQQManager = nil;
     return [QQApiInterface sendReq:req];
 }
 
-+ (QQApiSendResultCode)sendReqQQZone:(QQApiNewsObject *)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
++ (BOOL)sendReqQQZone:(id)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
     [[EYQQManager sharedEYQQManager] setQqDelegate:target];
     [[EYQQManager sharedEYQQManager] setBlock:completion];
     
@@ -120,17 +125,17 @@ static EYQQManager *sharedEYQQManager = nil;
     [[EYQQManager sharedEYQQManager] setBlock:completion];
     
     NSString *tempLocalAppId = @"";
-    if ([[EYQQManager sharedEYQQManager] appId]) {
-        tempLocalAppId = [NSString stringWithFormat:@"tencent%@",[[EYQQManager sharedEYQQManager] appId]];
+    if ([EYQQManager getQQAppId]) {
+        tempLocalAppId = [NSString stringWithFormat:@"tencent%@",[EYQQManager getQQAppId]];
     }
-    return [[EYQQManager sharedEYQQManager] authorize:permissions localAppId:tempLocalAppId inSafari:NO];
+    return [[[EYQQManager sharedEYQQManager] oauth] authorize:permissions localAppId:tempLocalAppId inSafari:NO];
 }
 
 + (BOOL)reauthorizeWithPermissions:(NSArray *)permissions target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
     [[EYQQManager sharedEYQQManager] setQqDelegate:target];
     [[EYQQManager sharedEYQQManager] setBlock:completion];
     
-    return [[EYQQManager sharedEYQQManager] reauthorizeWithPermissions:permissions];
+    return [[[EYQQManager sharedEYQQManager] oauth] reauthorizeWithPermissions:permissions];
 }
 
 #pragma mark - QQSDKDelegate
@@ -198,7 +203,7 @@ static EYQQManager *sharedEYQQManager = nil;
 #pragma mark - TencentSessionDelegate
 - (void)tencentDidLogin
 {
-    NSLog(@"tencentDidLogin:accessToken:%@ openId:%@ expireIn:%@", [self accessToken], [self openId], [self expirationDate]);
+    NSLog(@"tencentDidLogin:accessToken:%@ openId:%@ expireIn:%@", [[[EYQQManager sharedEYQQManager] oauth] accessToken], [[[EYQQManager sharedEYQQManager] oauth] openId], [[[EYQQManager sharedEYQQManager] oauth] expirationDate]);
     
     if (self.block) {
         self.block(YES, @"登录成功", [EYQQManager sharedEYQQManager]);
