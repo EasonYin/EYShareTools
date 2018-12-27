@@ -28,7 +28,6 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '9.0'
   s.static_framework = true
   s.pod_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
-  s.user_target_xcconfig = { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES' }
 
   #
   s.source_files = 'EYShareTools/EYShareToolsConfigure.h','EYShareTools/Classes/**/*.{h,m}'

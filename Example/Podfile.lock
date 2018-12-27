@@ -2,22 +2,17 @@ PODS:
   - EYShareTools (0.0.1):
     - EYShareTools/EY_vendored_libs (= 0.0.1)
     - Masonry
-    - YYModel
   - EYShareTools/EY_vendored_libs (0.0.1):
     - EYShareTools/EY_vendored_libs/libWeiboSDK_3.2.3 (= 0.0.1)
     - EYShareTools/EY_vendored_libs/TencentOpenAPI_3.3.3 (= 0.0.1)
     - EYShareTools/EY_vendored_libs/WechatSDK_1.8.2 (= 0.0.1)
     - Masonry
-    - YYModel
   - EYShareTools/EY_vendored_libs/libWeiboSDK_3.2.3 (0.0.1):
     - Masonry
-    - YYModel
   - EYShareTools/EY_vendored_libs/TencentOpenAPI_3.3.3 (0.0.1):
     - Masonry
-    - YYModel
   - EYShareTools/EY_vendored_libs/WechatSDK_1.8.2 (0.0.1):
     - Masonry
-    - YYModel
   - Masonry (1.1.0)
   - YYModel (1.0.4)
 
@@ -36,7 +31,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EYShareTools: 69a3e6d84eecd9392663e3587e272d3093f1ca8d
+  EYShareTools: 94b2f05b1c79556f037a6119badc83d23b2da967
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 

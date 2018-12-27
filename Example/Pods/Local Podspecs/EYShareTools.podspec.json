@@ -46,9 +46,6 @@
     "stdc++"
   ],
   "dependencies": {
-    "YYModel": [
-
-    ],
     "Masonry": [
 
     ]
