@@ -120,11 +120,11 @@ static EYWXManager *sharedEYWXManager = nil;
     
     if (self.block)
     {
-        self.block(state,message,resp);
+        self.block(state,message,resp.copy);
     }
     
     if (self.wxDelegate && [self.wxDelegate respondsToSelector:@selector(WXMessageFinishedState:Message:ResultInfo:)]) {
-        [self.wxDelegate WXMessageFinishedState:state Message:message ResultInfo:resp];
+        [self.wxDelegate WXMessageFinishedState:state Message:message ResultInfo:resp.copy];
     }
     
 }
