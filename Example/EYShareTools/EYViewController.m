@@ -10,7 +10,7 @@
 #import <EYShareTools/EYShareTools-umbrella.h>
 #import <YYModel/YYModel-umbrella.h>
 
-@interface EYViewController ()<EYShareManagerDelegate>
+@interface EYViewController ()
 {
     __weak IBOutlet UIButton *_weChatFriends;
     __weak IBOutlet UIButton *_weChatMoments;
@@ -60,14 +60,16 @@
     _qqZone.selected?[shareChannel addObject:Share_QQZone]:nil;
     _sinaWeibo.selected?[shareChannel addObject:Share_Sinaweibo]:nil;
     
-    [[EYShareManager sharedEYShareManager]shareWithTarget:self channel:shareChannel shareModel:shareModel begin:^(BOOL state) {
+    [[EYShareManager sharedEYShareManager] shareWithModel:shareModel channel:shareChannel begin:^(BOOL state) {
         NSLog(@"block share begin");
+
     } selectClient:^(NSString *selectClient) {
         NSLog(@"block share to:%@",selectClient);
+
     } cancel:^{
         NSLog(@"block share cancel");
+
     } completion:^(BOOL state, NSDictionary *resultInfo, NSString *isCallBack) {
-        
         NSLog(@"block shareChannel:%@",resultInfo[@"shareChannel"]);
         
         if ([resultInfo[@"shareResult"] intValue] == 0){
@@ -87,37 +89,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - EYShareManagerDelegate
-#warning 按需选择代理和block方式回调
-- (void)shareBeginWithShareModel:(EYShareInfoModel *)model {
-    NSLog(@"delegate share begin");
-
-}
-
-- (void)shareCancelWithShareModel:(EYShareInfoModel *)model {
-    NSLog(@"delegate share cancel");
-
-}
-
-- (void)shareFinishedWithState:(BOOL)state resultInfo:(NSDictionary *)resultInfo shareModel:(EYShareInfoModel *)model {
-    NSLog(@"delegate shareChannel:%@",resultInfo[@"shareChannel"]);
-    
-    if ([resultInfo[@"shareResult"] intValue] == 0){
-        NSLog(@"成功");
-    }else if ([resultInfo[@"shareResult"] intValue] == 1){
-        NSLog(@"失败");
-    }else if ([resultInfo[@"shareResult"] intValue] == 2){
-        NSLog(@"取消");
-    }
-    
-    NSLog(@"isCallBack:%@",model.isCallBack);
-}
-
-- (void)shareToClient:(NSString *)client shareModel:(EYShareInfoModel *)model {
-    NSLog(@"delegate share to:%@",client);
-
 }
 
 

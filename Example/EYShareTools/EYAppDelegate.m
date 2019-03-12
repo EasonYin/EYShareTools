@@ -15,9 +15,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [EYSocialSDKManager registerQQWithAppId:@"1107230818"];
-    [EYSocialSDKManager registerSinaWithAppId:@"2368934348"];
-    [EYSocialSDKManager registerWeChatWithAppId:@"3c1d1e144a0ec919"];
+//    [EYSocialSDKManager registerQQWithAppId:@"1107230818"];
+//    [EYSocialSDKManager registerSinaWithAppId:@"2368934348"];
+//    [EYSocialSDKManager registerWeChatWithAppId:@"3c1d1e144a0ec919"];
 
     return YES;
 }

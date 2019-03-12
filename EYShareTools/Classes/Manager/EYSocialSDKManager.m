@@ -37,6 +37,12 @@
     return YES;
 }
 
++ (void)registerWeChat:(NSString *)wxAppId Sina:(NSString *)sinaAppId QQ:(NSString *)qqAppId{
+    [EYSocialSDKManager registerWeChatWithAppId:wxAppId];
+    [EYSocialSDKManager registerSinaWithAppId:sinaAppId];
+    [EYSocialSDKManager registerQQWithAppId:qqAppId];
+}
+
 + (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
     if ([options[@"UIApplicationOpenURLOptionsSourceApplicationKey"] isEqualToString:@"com.tencent.xin"]) {
         //wechat

@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)registerSinaWithAppId:(NSString *)appid;
 + (BOOL)registerQQWithAppId:(NSString *)appid;
 
++ (void)registerWeChat:(NSString *)wxAppId Sina:(NSString *)sinaAppId QQ:(NSString *)qqAppId;
+
 /**
  * 统一管理分享跳转过来的url
  

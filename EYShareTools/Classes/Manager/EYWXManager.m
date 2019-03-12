@@ -61,7 +61,7 @@ static EYWXManager *sharedEYWXManager = nil;
     if ([EYShareManagerUtil validateString:appid]) {
         [[EYWXManager sharedEYWXManager] setWxAppId:appid];
     }
-    return [WXApi registerApp:[[EYWXManager sharedEYWXManager] wxAppId]];
+    return [WXApi registerApp:appid];
 }
 
 + (NSString *)getWXAppId{
@@ -83,9 +83,8 @@ static EYWXManager *sharedEYWXManager = nil;
     return [WXApi handleOpenURL:url delegate:self];
 }
 
-+ (BOOL)sendReq:(id)req target:(id<EYWXManagerDelegate>)target completion:(_Nullable completionBlock)completion
++ (BOOL)sendReq:(id)req completion:(_Nullable completionBlock)completion
 {
-    [[EYWXManager sharedEYWXManager] setWxDelegate:target];
     [[EYWXManager sharedEYWXManager] setBlock:completion];
     return [WXApi sendReq:req];
 }
@@ -122,11 +121,7 @@ static EYWXManager *sharedEYWXManager = nil;
     {
         self.block(state,message,resp.copy);
     }
-    
-    if (self.wxDelegate && [self.wxDelegate respondsToSelector:@selector(WXMessageFinishedState:Message:ResultInfo:)]) {
-        [self.wxDelegate WXMessageFinishedState:state Message:message ResultInfo:resp.copy];
-    }
-    
+        
 }
 
 @end

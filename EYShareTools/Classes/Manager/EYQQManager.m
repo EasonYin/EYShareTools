@@ -104,24 +104,21 @@ static EYQQManager *sharedEYQQManager = nil;
     }
 }
 
-+ (BOOL)sendReqQQ:(id)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
-    [[EYQQManager sharedEYQQManager] setQqDelegate:target];
++ (BOOL)sendReqQQ:(id)message completion:(_Nullable completionBlock)completion{
     [[EYQQManager sharedEYQQManager] setBlock:completion];
     
     SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:message];
     return [QQApiInterface sendReq:req];
 }
 
-+ (BOOL)sendReqQQZone:(id)message target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
-    [[EYQQManager sharedEYQQManager] setQqDelegate:target];
++ (BOOL)sendReqQQZone:(id)message completion:(_Nullable completionBlock)completion{
     [[EYQQManager sharedEYQQManager] setBlock:completion];
     
     SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:message];
     return [QQApiInterface SendReqToQZone:req];
 }
 
-+ (BOOL)authorize:(NSArray *)permissions target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
-    [[EYQQManager sharedEYQQManager] setQqDelegate:target];
++ (BOOL)authorize:(NSArray *)permissions completion:(_Nullable completionBlock)completion{
     [[EYQQManager sharedEYQQManager] setBlock:completion];
     
     NSString *tempLocalAppId = @"";
@@ -131,8 +128,7 @@ static EYQQManager *sharedEYQQManager = nil;
     return [[[EYQQManager sharedEYQQManager] oauth] authorize:permissions localAppId:tempLocalAppId inSafari:NO];
 }
 
-+ (BOOL)reauthorizeWithPermissions:(NSArray *)permissions target:(id<EYQQManagerDelegate>)target completion:(_Nullable completionBlock)completion{
-    [[EYQQManager sharedEYQQManager] setQqDelegate:target];
++ (BOOL)reauthorizeWithPermissions:(NSArray *)permissions completion:(_Nullable completionBlock)completion{
     [[EYQQManager sharedEYQQManager] setBlock:completion];
     
     return [[[EYQQManager sharedEYQQManager] oauth] reauthorizeWithPermissions:permissions];
@@ -195,9 +191,6 @@ static EYQQManager *sharedEYQQManager = nil;
         self.block(state, message, resp.copy);
     }
     
-    if (self.qqDelegate && [self.qqDelegate respondsToSelector:@selector(QQMessageFinishedState:Message:ResultInfo:)]) {
-        [self.qqDelegate QQMessageFinishedState:state Message:message ResultInfo:resp.copy];
-    }
 }
 
 #pragma mark - TencentSessionDelegate
@@ -208,9 +201,7 @@ static EYQQManager *sharedEYQQManager = nil;
     if (self.block) {
         self.block(YES, @"登录成功", [EYQQManager sharedEYQQManager]);
     }
-    if (self.qqDelegate && [self.qqDelegate respondsToSelector:@selector(QQMessageFinishedState:Message:ResultInfo:)]) {
-        [self.qqDelegate QQMessageFinishedState:YES Message:@"登录成功" ResultInfo:[EYQQManager sharedEYQQManager]];
-    }
+    
 }
 
 - (void)tencentDidNotLogin:(BOOL)cancelled
@@ -227,9 +218,6 @@ static EYQQManager *sharedEYQQManager = nil;
         self.block(NO, message, @"tencentDidNotLogin");
     }
     
-    if (self.qqDelegate && [self.qqDelegate respondsToSelector:@selector(QQMessageFinishedState:Message:ResultInfo:)]) {
-        [self.qqDelegate QQMessageFinishedState:NO Message:message ResultInfo:@"tencentDidNotLogin"];
-    }
 }
 
 - (void)tencentDidNotNetWork
@@ -238,9 +226,6 @@ static EYQQManager *sharedEYQQManager = nil;
         self.block(NO, @"登录失败", @"tencentDidNotNetWork");
     }
     
-    if (self.qqDelegate && [self.qqDelegate respondsToSelector:@selector(QQMessageFinishedState:Message:ResultInfo:)]) {
-        [self.qqDelegate QQMessageFinishedState:NO Message:@"登录失败" ResultInfo:@"tencentDidNotNetWork"];
-    }
 }
 
 @end

@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger , InstantType) {
     kInstantTypeOnlyMessage,
 };
 
-@interface EYShareManager()<EYWXManagerDelegate,EYQQManagerDelegate,EYSinaManagerDelegate,EYShareShakeDelegate>
+@interface EYShareManager()<EYShareShakeDelegate>
 {
     EYShareInfoModel  *_shareModel;
     EYShareShakeView  *_shareView;        //分享view
@@ -107,9 +107,8 @@ static EYShareManager *sharedEYShareManager = nil;
     [_shareView setUpUIWithChannelArray:@[Share_Wxfriends,Share_Wxmoments,Share_QQfriends,Share_QQZone,Share_Sinaweibo,Share_CopyURL] showUninstallApp:_showUninstallApp];
 }
 
-- (void)shareWithTarget:(id)target channel:(NSArray *)channelArr shareModel:(EYShareInfoModel *)model begin:(EYShareBeginBlock)beginBlock selectClient:(EYShareSelectClientBlock)selectClientBlock cancel:(EYShareCancelBlock)cancelBlock completion:(EYShareCompletionBlock)completion{
+- (void)shareWithModel:(EYShareInfoModel *)model channel:(NSArray *)channelArr begin:(EYShareBeginBlock)beginBlock selectClient:(EYShareSelectClientBlock)selectClientBlock cancel:(EYShareCancelBlock)cancelBlock completion:(EYShareCompletionBlock)completion{
     
-    self.delegate = target;
     self.beginBlock = beginBlock;
     self.selectClientBlock = selectClientBlock;
     self.cancelBlock = cancelBlock;
@@ -158,10 +157,6 @@ static EYShareManager *sharedEYShareManager = nil;
     else{
         
         self.beginBlock(YES);
-        
-        if ([self.delegate respondsToSelector:@selector(shareBeginWithShareModel:)]) {
-            [self.delegate shareBeginWithShareModel:_shareModel];
-        }
         
         if (shareBtnCount == 1){
             [self shareToClient:channelArr[0]];
@@ -244,7 +239,12 @@ static EYShareManager *sharedEYShareManager = nil;
     //    webObj.thumbnailData = [EYShareManagerUtil loadingImageUrl:_shareModel.iconUrl imageData:_shareModel.iconData length:kEYWXShareMaxImageBytes];
     //    message.mediaObject = webObj;
     
-    [EYSinaManager sendShareReq:message target:self completion:nil];
+    __weak typeof(self)weakSelf = self;
+    [EYSinaManager sendShareReq:message completion:^(BOOL state, NSString *message, id resultInfo) {
+        __strong typeof (weakSelf)strongSelf = weakSelf;
+        [strongSelf didReceiveShareResaultMessageFinishedState:state Message:message ResultInfo:resultInfo];
+        
+    }];
 }
 
 /**
@@ -295,11 +295,41 @@ static EYShareManager *sharedEYShareManager = nil;
     if ([self.clientString isEqualToString:Share_Wxfriends] && _shareModel.mpId.length > 0 && _shareModel.mpPath.length > 0 && _shareModel.mpIconUrl.length > 0) {
         WXMiniProgramObject *wxMiniObject = [WXMiniProgramObject object];
         wxMiniObject.webpageUrl = [EYShareManagerUtil reBuildShareURL:_shareModel.shareUrl resourceValue:Share_Wxfriends];//兼容低版本网页链接
-        wxMiniObject.userName = _shareModel.mpId;//小程序原始ID gh_59e78e4833f7
+        wxMiniObject.userName = _shareModel.mpId;//小程序原始ID
         wxMiniObject.path = _shareModel.mpPath;//小程序页面路径
         wxMiniObject.hdImageData = [EYShareManagerUtil loadingImageUrl:_shareModel.mpIconUrl imageData:nil length:kEYWXMiniShareMaxImageBytes];//小程序节点高清大图，128k
         wxMiniObject.withShareTicket = YES;
-        wxMiniObject.miniProgramType = WXMiniProgramTypeRelease;
+        //小程序分享类型 0：正式    1：开发   2：体验
+        NSInteger miniProgramType = _shareModel.miniProgramType.integerValue;
+        switch (miniProgramType) {
+            case 0:
+            {
+                wxMiniObject.miniProgramType = WXMiniProgramTypeRelease;
+
+            }
+                break;
+                
+            case 1:
+            {
+                wxMiniObject.miniProgramType = WXMiniProgramTypeTest;
+
+            }
+                break;
+                
+            case 2:
+            {
+                wxMiniObject.miniProgramType = WXMiniProgramTypePreview;
+
+            }
+                break;
+                
+            default:
+            {
+                wxMiniObject.miniProgramType = WXMiniProgramTypeRelease;
+
+            }
+                break;
+        }
         
         message.mediaObject = wxMiniObject;
     }else{
@@ -321,7 +351,11 @@ static EYShareManager *sharedEYShareManager = nil;
         req.scene = WXSceneTimeline;
     }
     
-    [EYWXManager sendReq:req target:self completion:nil];
+    __weak typeof(self)weakSelf = self;
+    [EYWXManager sendReq:req completion:^(BOOL state, NSString *message, id resultInfo) {
+        __strong typeof (weakSelf)strongSelf = weakSelf;
+        [strongSelf didReceiveShareResaultMessageFinishedState:state Message:message ResultInfo:resultInfo];
+    }];
 }
 
 /*
@@ -332,9 +366,43 @@ static EYShareManager *sharedEYShareManager = nil;
     WXLaunchMiniProgramReq *launchMiniProgramReq = [WXLaunchMiniProgramReq object];
     launchMiniProgramReq.userName = _shareModel.mpId;  //拉起的小程序的username
     launchMiniProgramReq.path = _shareModel.mpPath;    //拉起小程序页面的可带参路径，不填默认拉起小程序首页
-    launchMiniProgramReq.miniProgramType = WXMiniProgramTypeRelease; //拉起小程序的类型
+    //小程序分享类型 0：正式    1：开发   2：体验
+    NSInteger miniProgramType = _shareModel.miniProgramType.integerValue;
+    switch (miniProgramType) {
+        case 0:
+        {
+            launchMiniProgramReq.miniProgramType = WXMiniProgramTypeRelease;
+            
+        }
+            break;
+            
+        case 1:
+        {
+            launchMiniProgramReq.miniProgramType = WXMiniProgramTypeTest;
+            
+        }
+            break;
+            
+        case 2:
+        {
+            launchMiniProgramReq.miniProgramType = WXMiniProgramTypePreview;
+            
+        }
+            break;
+            
+        default:
+        {
+            launchMiniProgramReq.miniProgramType = WXMiniProgramTypeRelease;
+            
+        }
+            break;
+    }
     
-    [EYWXManager sendReq:launchMiniProgramReq target:self completion:nil];
+    __weak typeof(self)weakSelf = self;
+    [EYWXManager sendReq:launchMiniProgramReq completion:^(BOOL state, NSString *message, id resultInfo) {
+        __strong typeof (weakSelf)strongSelf = weakSelf;
+        [strongSelf didReceiveShareResaultMessageFinishedState:state Message:message ResultInfo:resultInfo];
+    }];
 }
 
 /**
@@ -384,13 +452,23 @@ static EYShareManager *sharedEYShareManager = nil;
     {
         NSURL *URL = [NSURL URLWithString:[EYShareManagerUtil reBuildShareURL:urlStr resourceValue:Share_QQfriends]];
         sendObj.url = URL;
-        [EYQQManager sendReqQQ:sendObj target:self completion:nil];
+        
+        __weak typeof(self)weakSelf = self;
+        [EYQQManager sendReqQQ:sendObj completion:^(BOOL state, NSString *message, id resultInfo) {
+            __strong typeof (weakSelf)strongSelf = weakSelf;
+            [strongSelf didReceiveShareResaultMessageFinishedState:state Message:message ResultInfo:resultInfo];
+        }];
     }
     else if([self.clientString isEqualToString:Share_QQZone])
     {
         NSURL *URL = [NSURL URLWithString:[EYShareManagerUtil reBuildShareURL:urlStr resourceValue:Share_QQZone]];
         sendObj.url = URL;
-        [EYQQManager sendReqQQZone:sendObj target:self completion:nil];
+        
+        __weak typeof(self)weakSelf = self;
+        [EYQQManager sendReqQQZone:sendObj completion:^(BOOL state, NSString *message, id resultInfo) {
+            __strong typeof (weakSelf)strongSelf = weakSelf;
+            [strongSelf didReceiveShareResaultMessageFinishedState:state Message:message ResultInfo:resultInfo];
+        }];
     }
 }
 
@@ -457,10 +535,6 @@ static EYShareManager *sharedEYShareManager = nil;
     [self cancel];
     self.selectClientBlock(client);
     
-    if ([self.delegate respondsToSelector:@selector(shareToClient:shareModel:)]) {
-        [self.delegate shareToClient:self.clientString shareModel:_shareModel];
-    }
-    
     SWITCH(self.clientString){
         CASE(Share_Sinaweibo){
             [self shareToSina];
@@ -491,24 +565,11 @@ static EYShareManager *sharedEYShareManager = nil;
 
 -(void)shareCancel:(UIView*)view
 {
-    if ([self.delegate respondsToSelector:@selector(shareCancelWithShareModel:)]) {
-        [self.delegate shareCancelWithShareModel:_shareModel];
-    }
     self.cancelBlock();
     [self cancel];
 }
 
-#pragma mark - EYManagerDelegate
--(void)WXMessageFinishedState:(BOOL)state Message:(NSString *)message ResultInfo:(id)resultInfo{
-    [self didReceiveShareResaultMessageFinishedState:state Message:message ResultInfo:resultInfo];
-}
--(void)SinaMessageFinishedState:(BOOL)state Message:(NSString *)message ResultInfo:(id)resultInfo{
-    [self didReceiveShareResaultMessageFinishedState:state Message:message ResultInfo:resultInfo];
-}
--(void)QQMessageFinishedState:(BOOL)state Message:(NSString *)message ResultInfo:(id)resultInfo{
-    [self didReceiveShareResaultMessageFinishedState:state Message:message ResultInfo:resultInfo];
-}
-
+#pragma mark -
 -(void)didReceiveShareResaultMessageFinishedState:(BOOL)state Message:(NSString *)message ResultInfo:(id)resultInfo
 {
     NSMutableDictionary *dicInfo = @{@"shareResult":[NSNumber numberWithInteger:EY_share_resault_type_none],
@@ -536,9 +597,5 @@ static EYShareManager *sharedEYShareManager = nil;
         self.completionBlock(state,dicInfo,_shareModel.isCallBack);
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(shareFinishedWithState:resultInfo:shareModel:)])
-    {
-        [self.delegate shareFinishedWithState:state resultInfo:dicInfo shareModel:_shareModel];
-    }
 }
 @end

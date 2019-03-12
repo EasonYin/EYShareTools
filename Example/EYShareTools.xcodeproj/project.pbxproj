@@ -60,7 +60,7 @@
 		6E76DB15EE9A92F39C0E2C36 /* Pods_EYShareTools_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EYShareTools_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C92BC847C1A56F7E23EC6C0 /* EYShareTools.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EYShareTools.podspec; path = ../EYShareTools.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		92DB594721D349A500D8AC81 /* EYShareTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EYShareTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DB594921D3554800D8AC81 /* EYShareTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EYShareTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A104E5F1B63A7ADB9A27DD4B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -143,11 +143,8 @@
 			children = (
 				6003F59C195388D20070C39A /* EYAppDelegate.h */,
 				6003F59D195388D20070C39A /* EYAppDelegate.m */,
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* EYViewController.h */,
 				6003F5A6195388D20070C39A /* EYViewController.m */,
-				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
-				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for EYShareTools";
@@ -157,6 +154,9 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
+				6003F5A8195388D20070C39A /* Images.xcassets */,
+				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F595195388D20070C39A /* EYShareTools-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,

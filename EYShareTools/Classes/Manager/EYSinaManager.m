@@ -67,7 +67,7 @@ static EYSinaManager *sharedEYSinaManager = nil;
         return NO;
     }
     [[EYSinaManager sharedEYSinaManager] setAppkey:appKey];
-    return [WeiboSDK registerApp:[[EYSinaManager sharedEYSinaManager] appkey]];
+    return [WeiboSDK registerApp:appKey];
 }
 
 +(NSString *)getSianAppKey{
@@ -86,8 +86,7 @@ static EYSinaManager *sharedEYSinaManager = nil;
     return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
-+ (BOOL)sendShareReq:(id)message target:(id<EYSinaManagerDelegate>)target completion:(completionBlock)completion{
-    [[EYSinaManager sharedEYSinaManager] setSinaDelegate:target];
++ (BOOL)sendShareReq:(id)message completion:(completionBlock)completion{
     [[EYSinaManager sharedEYSinaManager] setBlock:completion];
     
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
@@ -102,8 +101,7 @@ static EYSinaManager *sharedEYSinaManager = nil;
     return [WeiboSDK sendRequest:request];
 }
 
-+ (BOOL)sendSSOReq:(id)authRequest target:(id<EYSinaManagerDelegate>)target completion:(completionBlock)completion{
-    [[EYSinaManager sharedEYSinaManager] setSinaDelegate:target];
++ (BOOL)sendSSOReq:(id)authRequest completion:(completionBlock)completion{
     [[EYSinaManager sharedEYSinaManager] setBlock:completion];
     return [WeiboSDK sendRequest:authRequest];
 }
@@ -180,8 +178,5 @@ static EYSinaManager *sharedEYSinaManager = nil;
         self.block(state, message, response);
     }
     
-    if (self.sinaDelegate && [self.sinaDelegate respondsToSelector:@selector(SinaMessageFinishedState:Message:ResultInfo:)]) {
-        [self.sinaDelegate SinaMessageFinishedState:state Message:message ResultInfo:response];
-    }
 }
 @end
