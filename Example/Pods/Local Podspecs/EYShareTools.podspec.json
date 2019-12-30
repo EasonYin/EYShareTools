@@ -1,6 +1,6 @@
 {
   "name": "EYShareTools",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "summary": "（微信/QQ/微博）分享集合",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/EasonYin/EYShareTools",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/EasonYin/EYShareTools.git",
-    "tag": "0.0.1"
+    "tag": "0.0.2"
   },
   "platforms": {
     "ios": "6.0"
@@ -24,6 +24,7 @@
   "requires_arc": true,
   "source_files": [
     "EYShareTools/EYShareToolsConfigure.h",
+    "EYShareTools/EYShareTools.h",
     "EYShareTools/Classes/**/*.{h,m}"
   ],
   "resources": "EYShareTools/Assets/*.xcassets",
@@ -61,9 +62,9 @@
           "resources": "EY_vendored_libs/libWeiboSDK_3.2.3/*.bundle"
         },
         {
-          "name": "WechatSDK_1.8.2",
-          "vendored_libraries": "EY_vendored_libs/WechatSDK_1.8.2/*.a",
-          "source_files": "EY_vendored_libs/WechatSDK_1.8.2/*.{h,txt}"
+          "name": "WeChatSDK_1.8.6.1",
+          "vendored_libraries": "EY_vendored_libs/WeChatSDK_1.8.6.1/*.a",
+          "source_files": "EY_vendored_libs/WeChatSDK_1.8.6.1/*.{h,txt}"
         },
         {
           "name": "TencentOpenAPI_3.3.3",

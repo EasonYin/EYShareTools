@@ -13,17 +13,19 @@
  *  @param message        NSString             成功或失败信息
  *  @param resultInfo     id                   回调内容(原SDK回调数据)
  */
-typedef void(^completionBlock)(BOOL state, NSString *message,id resultInfo);
+typedef void(^completionBlock)(BOOL state, NSString * __nullable message,id __nullable resultInfo);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EYWXManager : NSObject
 
 + (EYWXManager *)sharedEYWXManager;
-+ (BOOL)registerApp:(NSString *)appid;
++ (BOOL) registerApp:(NSString *)appid universalLink:(NSString *)universalLink;
 + (NSString*)getWXAppId;
 + (BOOL)isWXAppInstalled;
 + (BOOL)isWXAppSupportApi;
+
 - (BOOL)handleOpenURL:(NSURL *)url;
+- (BOOL)handleOpenUniversalLink:(NSUserActivity *)userActivity;
 
 /**
  *  发送请求，等待返回

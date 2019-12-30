@@ -30,7 +30,7 @@ TODO: Add long description of the pod here.
   s.requires_arc = true
 
   #
-  s.source_files = 'EYShareTools/EYShareToolsConfigure.h','EYShareTools/Classes/**/*.{h,m}'
+  s.source_files = 'EYShareTools/EYShareToolsConfigure.h','EYShareTools/EYShareTools.h','EYShareTools/Classes/**/*.{h,m}'
   s.resources = 'EYShareTools/Assets/*.xcassets'
 
   #依赖基础库
@@ -48,9 +48,9 @@ TODO: Add long description of the pod here.
         submain.resource = "EY_vendored_libs/libWeiboSDK_3.2.3/*.bundle"
     end
     #微信
-    sb.subspec 'WechatSDK_1.8.2' do |submain|
-        submain.vendored_library = "EY_vendored_libs/WechatSDK_1.8.2/*.a"
-        submain.source_files = "EY_vendored_libs/WechatSDK_1.8.2/*.{h,txt}"
+    sb.subspec 'WeChatSDK_1.8.6.1' do |submain|
+        submain.vendored_library = "EY_vendored_libs/WeChatSDK_1.8.6.1/*.a"
+        submain.source_files = "EY_vendored_libs/WeChatSDK_1.8.6.1/*.{h,txt}"
     end
     #QQ
     sb.subspec 'TencentOpenAPI_3.3.3' do |submain|

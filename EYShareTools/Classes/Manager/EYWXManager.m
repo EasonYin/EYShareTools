@@ -55,13 +55,13 @@ static EYWXManager *sharedEYWXManager = nil;
 }
 
 #pragma mark - Public Methods
-+ (BOOL) registerApp:(NSString *)appid
++ (BOOL) registerApp:(NSString *)appid universalLink:(NSString *)universalLink
 {
     // 注册微信
     if ([EYShareManagerUtil validateString:appid]) {
         [[EYWXManager sharedEYWXManager] setWxAppId:appid];
     }
-    return [WXApi registerApp:appid];
+    return [WXApi registerApp:appid universalLink:universalLink];
 }
 
 + (NSString *)getWXAppId{
@@ -83,10 +83,15 @@ static EYWXManager *sharedEYWXManager = nil;
     return [WXApi handleOpenURL:url delegate:self];
 }
 
+- (BOOL)handleOpenUniversalLink:(NSUserActivity *)userActivity{
+    return [WXApi handleOpenUniversalLink:userActivity delegate:self];
+}
+
 + (BOOL)sendReq:(id)req completion:(_Nullable completionBlock)completion
 {
     [[EYWXManager sharedEYWXManager] setBlock:completion];
-    return [WXApi sendReq:req];
+    [WXApi sendReq:req completion:nil];
+    return YES;
 }
 
 #pragma mark - WXApiDelegate

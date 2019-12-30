@@ -7,7 +7,7 @@
 //
 
 #import "EYViewController.h"
-#import <EYShareTools/EYShareTools-umbrella.h>
+#import <EYShareTools/EYShareTools.h>
 #import <YYModel/YYModel-umbrella.h>
 
 @interface EYViewController ()

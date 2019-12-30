@@ -11,6 +11,7 @@
 #endif
 
 #import "EYShareToolsConfigure.h"
+#import "EYShareTools.h"
 #import "EYQQManager.h"
 #import "EYShareManager.h"
 #import "EYSinaManager.h"

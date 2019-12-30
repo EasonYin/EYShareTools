@@ -12,11 +12,11 @@
 
 @implementation EYSocialSDKManager
 
-+ (BOOL)registerWeChatWithAppId:(NSString *)appid{
++ (BOOL)registerWeChatWithAppId:(NSString *)appid universalLink:(NSString *)universalLink{
     if (![EYShareManagerUtil validateString:appid]) {
         return NO;
     }
-    return [EYWXManager registerApp:appid];
+    return [EYWXManager registerApp:appid universalLink:(NSString *)universalLink];
 }
 
 + (BOOL)registerSinaWithAppId:(NSString *)appid{
@@ -37,12 +37,6 @@
     return YES;
 }
 
-+ (void)registerWeChat:(NSString *)wxAppId Sina:(NSString *)sinaAppId QQ:(NSString *)qqAppId{
-    [EYSocialSDKManager registerWeChatWithAppId:wxAppId];
-    [EYSocialSDKManager registerSinaWithAppId:sinaAppId];
-    [EYSocialSDKManager registerQQWithAppId:qqAppId];
-}
-
 + (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
     if ([options[@"UIApplicationOpenURLOptionsSourceApplicationKey"] isEqualToString:@"com.tencent.xin"]) {
         //wechat
@@ -61,6 +55,10 @@
         }
     }
     return YES;
+}
+
++ (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler{
+    return [[EYWXManager sharedEYWXManager] handleOpenUniversalLink:userActivity];
 }
 
 @end

@@ -16,11 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param appid 平台appid
  @return YES or NO
  */
-+ (BOOL)registerWeChatWithAppId:(NSString *)appid;
++ (BOOL)registerWeChatWithAppId:(NSString *)appid universalLink:(NSString *)universalLink;
 + (BOOL)registerSinaWithAppId:(NSString *)appid;
 + (BOOL)registerQQWithAppId:(NSString *)appid;
-
-+ (void)registerWeChat:(NSString *)wxAppId Sina:(NSString *)sinaAppId QQ:(NSString *)qqAppId;
 
 /**
  * 统一管理分享跳转过来的url
@@ -31,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return return value description
  */
 + (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options;
+
++ (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler;
 
 @end
 

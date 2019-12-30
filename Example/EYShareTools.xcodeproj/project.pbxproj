@@ -21,7 +21,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
-		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		92F3A7352322709C008A06BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F3A7332322709C008A06BF /* Main.storyboard */; };
 		DD305DA0B28625280552038C /* Pods_EYShareTools_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DD538989BF6FA5D9AFCE25 /* Pods_EYShareTools_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +34,19 @@
 			remoteInfo = EYShareTools;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		92F3A72F23226BE7008A06BF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		49DD538989BF6FA5D9AFCE25 /* Pods_EYShareTools_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EYShareTools_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,9 +73,13 @@
 		6E76DB15EE9A92F39C0E2C36 /* Pods_EYShareTools_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EYShareTools_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C92BC847C1A56F7E23EC6C0 /* EYShareTools.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EYShareTools.podspec; path = ../EYShareTools.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		92DB594721D349A500D8AC81 /* EYShareTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EYShareTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DB594921D3554800D8AC81 /* EYShareTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EYShareTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92F3A72523226BE7008A06BF /* EYShareTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EYShareTools.h; sourceTree = "<group>"; };
+		92F3A72623226BE7008A06BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92F3A7342322709C008A06BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		92F3A73D232270CD008A06BF /* EYShareToolsTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EYShareToolsTest.h; sourceTree = "<group>"; };
+		92F3A73E232270CD008A06BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A104E5F1B63A7ADB9A27DD4B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		AE2FD22D1E1D3DCA05B6F760 /* Pods-EYShareTools_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EYShareTools_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example.release.xcconfig"; sourceTree = "<group>"; };
 		F3B1011583CE4844C0B804B1 /* Pods-EYShareTools_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EYShareTools_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +125,8 @@
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for EYShareTools */,
 				6003F5B5195388D20070C39A /* Tests */,
+				92F3A72423226BE7008A06BF /* EYShareTools */,
+				92F3A73C232270CD008A06BF /* EYShareToolsTest */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				14270A7D775EF0BFC2732365 /* Pods */,
@@ -154,7 +173,7 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
+				92F3A7332322709C008A06BF /* Main.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F595195388D20070C39A /* EYShareTools-Info.plist */,
@@ -194,6 +213,24 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		92F3A72423226BE7008A06BF /* EYShareTools */ = {
+			isa = PBXGroup;
+			children = (
+				92F3A72523226BE7008A06BF /* EYShareTools.h */,
+				92F3A72623226BE7008A06BF /* Info.plist */,
+			);
+			path = EYShareTools;
+			sourceTree = "<group>";
+		};
+		92F3A73C232270CD008A06BF /* EYShareToolsTest */ = {
+			isa = PBXGroup;
+			children = (
+				92F3A73D232270CD008A06BF /* EYShareToolsTest.h */,
+				92F3A73E232270CD008A06BF /* Info.plist */,
+			);
+			path = EYShareToolsTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -206,6 +243,7 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				CAC7D306B9C4B9C1E7F02573 /* [CP] Embed Pods Frameworks */,
+				92F3A72F23226BE7008A06BF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -257,6 +295,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -276,7 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
+				92F3A7352322709C008A06BF /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -321,17 +360,13 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EYShareTools/EYShareTools.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EYShareTools.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
@@ -339,7 +374,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EYShareTools_Example/Pods-EYShareTools_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -396,6 +431,14 @@
 				71719F9E1E33DC2100824A3D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		92F3A7332322709C008A06BF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92F3A7342322709C008A06BF /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -506,10 +549,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = CTM8P49F3V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EYShareTools/EYShareTools-Prefix.pch";
 				INFOPLIST_FILE = "EYShareTools/EYShareTools-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -523,10 +568,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = CTM8P49F3V;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EYShareTools/EYShareTools-Prefix.pch";
 				INFOPLIST_FILE = "EYShareTools/EYShareTools-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
